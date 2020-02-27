@@ -52,5 +52,24 @@ module.exports = {
             }
         });
     },
-
+    getBymusername: function(username, callback) {
+        var sql = "select * from member where musername=?";
+        db.getResults(sql, [username], function(results) {
+            if (results.length > 0) {
+                callback(results[0]);
+            } else {
+                callback(null);
+            }
+        });
+    },
+    updateadmin : function(user, callback){
+		var sql = "update admin set ausername=?, password=?, aname=?, aphone=? where aid=?";
+		db.execute(sql, [user.ausername, user.password, user.aname,user.aphone, user.aid], function(status){
+			if(status){
+				callback(true);
+			}else{
+				callback(false);
+			}
+		});
+	},
 }
