@@ -42,5 +42,15 @@ module.exports = {
             }
         });
     },
+    getByausername: function(username, callback) {
+        var sql = "select * from admin where ausername=?";
+        db.getResults(sql, [username], function(results) {
+            if (results.length > 0) {
+                callback(results[0]);
+            } else {
+                callback(null);
+            }
+        });
+    },
 
 }
