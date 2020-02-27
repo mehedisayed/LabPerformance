@@ -1,6 +1,16 @@
 var express = require('express');
 var router = express.Router();
 var userModel = require.main.require('./models/user-model');
+
+router.get('*', function(req, res, next) {
+    if (req.cookies['username'] != null && req.cookies['type'] == 'admin') {
+        res.redirect('/home/admin');
+    } else if (req.cookies['username'] != null && req.cookies['type'] == 'member') {
+        res.redirect('/home/member');
+    } else {
+        next();
+    }
+});
 router.get('/', function(req, res) {
     res.render('login/index');
 });
@@ -35,7 +45,7 @@ router.post('/', function(req, res) {
     } else {
         res.send('select admin or member');
     }
-    
+
 });
 
 module.exports = router;

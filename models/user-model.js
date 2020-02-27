@@ -32,5 +32,15 @@ module.exports = {
             }
         });
     },
+    insertmember: function(user, callback) {
+        var sql = "insert into member values(?,?,?,?,?)";
+        db.execute(sql, [null, user.user_name, user.user_phone, user.username, user.password], function(status) {
+            if (status) {
+                callback(true);
+            } else {
+                callback(false);
+            }
+        });
+    },
 
 }
