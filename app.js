@@ -9,6 +9,8 @@ var app = express();
 
 var home = require('./controllers/home');
 var login = require('./controllers/login');
+var logout = require('./controllers/logout');
+var register = require('./controllers/register');
 //configuration
 app.set('view engine', 'ejs');
 
@@ -19,6 +21,8 @@ app.use(cookieParser());
 
 app.use('/home', home);
 app.use('/login', login);
+app.use('/logout', logout);
+app.use('/register', register);
 
 //routes
 app.get('/', function(req, res) {

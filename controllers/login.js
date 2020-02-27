@@ -9,19 +9,33 @@ router.post('/', function(req, res) {
 
     var user = {
         username: req.body.uname,
-        password: req.body.password
+        password: req.body.password,
+        type: req.body.type,
     };
-            userModel.validate(user, function(results) {
-            if (results !=null) {
-                res.cookie('username', results.username);
-                res.cookie('type', results.user_type_name);
-                res.redirect('/home');
+    if (req.body.type == 'admin') {
+        userModel.validateadmin(user, function(status) {
+            if (status) {
+                res.cookie('username', req.body.uname);
+                res.cookie('type', req.body.type);
+                res.redirect('/home/admin');
             } else {
                 res.redirect('/login');
             }
         });
+    } else if (req.body.type == 'member') {
+        userModel.validatemember(user, function(status) {
+            if (status) {
+                res.cookie('username', req.body.uname);
+                res.cookie('type', req.body.type);
+                res.redirect('/home/member');
+            } else {
+                res.redirect('/login');
+            }
+        });
+    } else {
+        res.send('select admin or member');
+    }
     
-
 });
 
 module.exports = router;

@@ -44,7 +44,7 @@ module.exports ={
 			});
 		});
 	},
-	execute: function(sql, callback){
+	execute: function(sql, params, callback){
 		getConnection(function(connection){
 
 			if(params != null){
